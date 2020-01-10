@@ -16,12 +16,22 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    loadChildren: () => import('./page/home/home.module').then(m => m.HomePageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule),
+    path: 'chapters',
+    loadChildren: () => import ('./page/chapters/chapters.module').then(m => m.ChaptersPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'chapter/:id',
+    loadChildren: () => import ('./page/chapter/chapter.module').then(m => m.ChapterPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import ('./page/settings/settings.module').then(m => m.SettingsPageModule),
     canActivate: [AuthGuard]
   }
 ];

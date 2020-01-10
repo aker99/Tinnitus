@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
   tryLogin() {
     console.log('tryLogin');
     this.authService.doLogin(this.email, this.password).then(res => {
-      this.router.navigate(['home']);
+      this.router.navigate(['page/home']);
     }, err => {
       console.log(err);
       this.errorMessage = err.message;

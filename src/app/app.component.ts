@@ -3,7 +3,10 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
+import * as firebase from 'firebase/app';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -12,22 +15,38 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
+      title: 'DashBoard',
+      url: 'home',
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Chapters',
+      url: 'chapters',
+      icon: 'document'
+    },
+    {
+      title: 'Settings',
+      url: 'settings',
+      icon: 'settings'
     }
   ];
-
+  protected isLoggedIn: boolean;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private router: Router,
+    private authService: AuthService
   ) {
+    firebase.auth().onIdTokenChanged((user) => {
+      if (user) {
+        console.log('loggedIn');
+        this.isLoggedIn = true;
+      } else {
+      console.log('loggedOut');
+      this.isLoggedIn = false;
+      }
+    });
     this.initializeApp();
   }
 
@@ -35,6 +54,14 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+    });
+  }
+
+  tryLogout() {
+    this.authService.doLogout().then(res => {
+      this.router.navigate(['']);
+    }, err => {
+      console.log(err);
     });
   }
 }
