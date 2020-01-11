@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chapters</ion-title>
+    <ion-title>Chapters</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-row>
+    <ion-col sizeMd=4 sizeSm=6 sizeXs=12 *ngFor="let chapter of chapters;index as i">
+      <ion-card (click)="openChapter(chapter)">
+          <ion-card-header>
+              <ion-card-title>{{chapter.name}}</ion-card-title>
+              <!-- <ion-card-subtitle></ion-card-subtitle> -->
+          </ion-card-header>
+          <ion-card-content>
+              This is content, without any paragraph or header tags,
+              within an ion-card-content element.
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>

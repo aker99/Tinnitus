@@ -37,5 +37,20 @@ export class UserService {
       }, err => reject(err))
     })
   }
+
+  doUpdatePassword(user,opass: string,npass: string){
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      user.email, opass);
+    return user.reauthenticateWithCredential(credentials)
+    .then( () => user.updatePassword(npass))
+    .then(() => 'Your password has been changed!!!')
+    .catch( err => err.message);
+  }
+
+  doPasswordReset(email) {
+    return firebase.auth().sendPasswordResetEmail(email)
+    .then(()=> 'A password reset link has been sent to your email.')
+    .catch(err => err.message);
+  }
 }
 

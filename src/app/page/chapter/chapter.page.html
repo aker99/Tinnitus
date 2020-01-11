@@ -1,9 +1,56 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chapter</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+        {{chapter.name}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-
+<ion-content overflow-scroll="true" >
+<div *ngFor="let content of contents">
+  <ion-card color="secondary">
+    <ion-card-header>
+      <ion-card-title >{{content.data}}</ion-card-title>
+    </ion-card-header>  
+  </ion-card>
+  <ion-card>    
+    <div *ngFor="let sub of content.sub" [ngSwitch]="returnContentType(sub)">
+      <ion-card-header *ngSwitchCase="getContentType().SUB_HEADING" >
+        <ion-card-subtitle color="success">{{sub.data}}</ion-card-subtitle>
+      </ion-card-header> 
+      <ion-card-content *ngSwitchCase="getContentType().PARAGRAPH">{{sub.data}}</ion-card-content>
+      <ion-img  *ngSwitchCase="getContentType().IMAGE" [src]="getImagePath(sub.data)"></ion-img>
+      <ion-list *ngSwitchCase="getContentType().U_LIST">
+        <ion-list-header >
+          <ion-label color="tertiary">{{sub.data}}</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let list of sub.sub" >{{list.data}}</ion-item>
+      </ion-list>
+      <ion-card-content *ngSwitchCase="getContentType().AUDIO">
+        <audio controls >
+          <source src="assets/content/audio/{{sub.data}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+      </ion-card-content>
+    </div>
+  </ion-card>
+</div>
 </ion-content>
+<ion-footer>
+  <ion-tab-bar slot="bottom">
+      <ion-tab-button *ngIf="index>0" (click)="returnPreviousModule()">
+        <ion-icon name="arrow-dropleft-circle"></ion-icon>
+        <ion-label>Previous Module</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="chapters" (click)="returnModules()">
+          <ion-icon name="document"></ion-icon>
+          <ion-label>Modules</ion-label>
+      </ion-tab-button>
+      <ion-tab-button *ngIf="index<chapterList.length-1"(click)="returnNextModule()">
+        <ion-icon name="arrow-dropright-circle"></ion-icon>
+        <ion-label>Next Module</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+</ion-footer>

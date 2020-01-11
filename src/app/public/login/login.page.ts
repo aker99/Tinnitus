@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { IonSlides, Events } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { IonSlides, Events } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  constructor(private authService: AuthService, private router: Router, private events: Events) { }
+  constructor(private authService: AuthService, private router: Router, private events: Events, private userService: UserService) { }
 
   protected email: string;
   protected password: string;
@@ -32,7 +33,7 @@ export class LoginPage implements OnInit {
   }
 
   tryResetPassword() {
-    this.authService.doPasswordReset(this.email)
+    this.userService.doPasswordReset(this.email)
     .then((data) => {
       this.errorMessage = data;
       this.passResetCheckToggle();

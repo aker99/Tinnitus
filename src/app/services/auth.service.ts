@@ -33,10 +33,4 @@ export class AuthService {
       }
     });
   }
-
-  doPasswordReset(email) {
-    return firebase.auth().sendPasswordResetEmail(email)
-    .then(()=> 'A password reset link has been sent to your email.')
-    .catch(err => err.message);
-  }
 }

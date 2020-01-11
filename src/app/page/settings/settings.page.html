@@ -1,9 +1,62 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list no-border>
+    <ion-list-header>
+      <ion-text color="dark">
+        <h5>General Info</h5>
+      </ion-text>
+    </ion-list-header>
+    <ion-item class="bg-profile">
+      <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <ion-text color="primary">Email: </ion-text>
+        <ion-text color="secondary">{{user.email}}</ion-text>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-icon name="calendar" slot="start" color="primary"></ion-icon>
+      <ion-label class="label" >
+        <ion-text color="primary">Subscription: </ion-text>
+        <ion-text color="secondary">jdjnkjds</ion-text>
+      </ion-label>
+    </ion-item> -->
+    <ion-item>
+      <ion-icon name="key" slot="start" color="primary"></ion-icon>
+      <ion-label class="label" >
+        <ion-text color="primary">Password</ion-text>
+      </ion-label>
+      <ion-button (click)="passwordToggleFunc()"> 
+        <ion-icon name="create" color="warning"  *ngIf="!passwordToggle"></ion-icon>
+        <ion-icon name="close" color="warning"  *ngIf="passwordToggle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+  <ion-list no-border *ngIf="passwordToggle">
+      <ion-list-header>
+        <ion-text color="dark">
+          <h5>Change Password</h5>
+        </ion-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-icon name="key" slot="start" color="warning"></ion-icon>
+        <ion-input type="password" placeholder="Enter current password" [(ngModel)]="oldpass"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="key" slot="start" color="warning"></ion-icon>
+        <ion-input type="password" placeholder="Enter new password" [(ngModel)]="newpass"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="done-all" slot="start" color="warning"></ion-icon>
+        <ion-input type="password" placeholder="Confrim new password" [(ngModel)]="newpasscn"></ion-input>
+      </ion-item>    
+      <ion-button color="success" (click)="updatePassword()">Change Password</ion-button>    
+  </ion-list>
 </ion-content>
