@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { UserService } from './user.service';
+import { resolve } from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,11 @@ export class AuthService {
         reject();
       }
     });
+  }
+
+  doPasswordReset(email) {
+    return firebase.auth().sendPasswordResetEmail(email)
+    .then(()=> 'A password reset link has been sent to your email.')
+    .catch(err => err.message);
   }
 }

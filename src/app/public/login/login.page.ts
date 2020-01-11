@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -9,32 +9,40 @@ import { IonSlides } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private events: Events) { }
 
   protected email: string;
   protected password: string;
   protected errorMessage: string;
+  protected pageTitle: string;
+  protected passReset: boolean;
+  @ViewChild('LoginSlide', { static: false })  slides: IonSlides;
 
-  @ViewChild('LoginSlide', { static: true })  slides: IonSlides;
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
   tryLogin() {
     console.log('tryLogin');
     this.authService.doLogin(this.email, this.password).then(res => {
-      this.router.navigate(['page/home']);
+      this.router.navigate(['home']);
+      this.errorMessage = null;
     }, err => {
       console.log(err);
       this.errorMessage = err.message;
     });
   }
 
-  swipeNext(){
-    console.log("inside swipeNext")
-    this.slides.slideNext();
+  tryResetPassword() {
+    this.authService.doPasswordReset(this.email)
+    .then((data) => {
+      this.errorMessage = data;
+      this.passResetCheckToggle();
+    });
   }
-  swipePrev(){
-    console.log("inside swipePrev")
-    this.slides.slidePrev();
+  passResetCheckToggle() {
+    this.passReset = !this.passReset;
+    if (this.passReset) {
+    this.errorMessage = 'Enter your email';
+    }
   }
+
 }

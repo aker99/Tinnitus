@@ -1,15 +1,29 @@
-<ion-content>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"  >
+      <ion-button (click)="this.slides.slidePrev()"><ion-icon name="arrow-round-back"></ion-icon></ion-button>
+    </ion-buttons>
+    <div align="center">
+      <ion-title size="large" color="primary">
+        Tinnitus {{pageTitle}}
+      </ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content  class="ion-padding-top">
   <ion-slides  #LoginSlide>
     <ion-slide>
-      sdjkbfjbfdsbifhdishfiudhsifuhsdiuhfidsuh
-      <ion-button (click)="swipeNext()">Next</ion-button>
+      <ion-card (click)="this.slides.slideNext()">
+        <ion-card-header>
+          <ion-card-title>Placeholder here</ion-card-title>
+          <ion-card-subtitle>XYZ</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          shdjshdkjskhdskjhdkhsdhshfhjgdshjfkjhdsfhjdsjhkfjdshkgfkjhgsfjhdgsfjhgsdhjfgdjshgfjkdgshfjgdsjhfgdshjgfhjdsgfhjdsgfdhsjgfjdsfjhgdfjhdsjhgfdjsgfjgdshfgdjsgfjhdsgfjhg
+        </ion-card-content>
+      </ion-card>
     </ion-slide>
     <ion-slide>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Login</ion-card-title>
-        </ion-card-header>
-      </ion-card>
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -18,7 +32,7 @@
                 <ion-icon name="person" slot="start"></ion-icon>
                 <ion-input type="email" placeholder="Enter your email" [(ngModel)]="email"></ion-input>
               </ion-item>
-              <ion-item>
+              <ion-item  *ngIf="!passReset">
                 <ion-icon name="key" slot="start"></ion-icon>
                 <ion-input type="password" placeholder="Enter your password" [(ngModel)]="password"></ion-input>
               </ion-item>
@@ -26,12 +40,11 @@
                 <ion-label color="danger">{{errorMessage}}</ion-label>
               </ion-item>
             </ion-card>
-            <ion-button (click)="tryLogin()" expand="block">Login</ion-button>
-                  <!-- <ion-button (click)="resetPassword()" expand="block" *ngIf="passResetCheck">Send Reset Password</ion-button>
-                  <ion-label (click)="passResetCheckToggle()" *ngIf="!passResetCheck">
+            <ion-button *ngIf="!passReset" (click)="tryLogin()" expand="block">Login</ion-button>
+            <ion-button (click)="tryResetPassword()" expand="block" *ngIf="passReset">Send Reset Password</ion-button>
+            <ion-label (click)="passResetCheckToggle()" *ngIf="!passReset">
                     Forgot Password?
-                  </ion-label> -->
-            <ion-button (click)="swipePrev()">Previous</ion-button>
+            </ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
