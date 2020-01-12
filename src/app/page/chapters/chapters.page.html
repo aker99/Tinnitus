@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-row>
-    <ion-col sizeMd=4 sizeSm=6 sizeXs=12 *ngFor="let chapter of chapters;index as i">
+    <ion-col sizeMd=4 sizeSm=6 sizeXs=12 *ngFor="let chapter of chapterList;index as i">
       <ion-card (click)="openChapter(chapter)">
           <ion-card-header>
               <ion-card-title>{{chapter.name}}</ion-card-title>

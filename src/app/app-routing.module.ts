@@ -16,9 +16,14 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./page/home/home.module').then(m => m.HomePageModule),
-    canActivate: [AuthGuard]
+    redirectTo: 'chapters',
+    pathMatch: 'full'
   },
+  // {
+  //   path: 'home',
+  //   loadChildren: () => import('./page/home/home.module').then(m => m.HomePageModule),
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'chapters',
     loadChildren: () => import ('./page/chapters/chapters.module').then(m => m.ChaptersPageModule),

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chapter } from 'src/app/modals/chapter';
+import { Chapter } from 'src/app/model/chapter';
 import { ChapterService } from 'src/app/services/chapter.service';
 import { Router } from '@angular/router';
 
@@ -10,13 +10,19 @@ import { Router } from '@angular/router';
 })
 export class ChaptersPage implements OnInit {
 
-  constructor(private chapterService: ChapterService, private route: Router) { 
-    this.chapterService.getChapterList()
-    .then((data) => this.chapters = data)
-    .catch((err) => console.log('err',err));
+  constructor(private chapterService: ChapterService, private route: Router) {
+    this.chapterList = JSON.parse(localStorage.getItem('chapterList'));
+    if (this.chapterList === null) {
+      this.chapterService.getChapterList()
+      .then((data) => {
+        this.chapterList = data;
+        localStorage.setItem('chapterList', JSON.stringify(data));
+      })
+      .catch((err) => console.log('err', err));
+    }
   }
 
-  protected chapters: Chapter[];
+  protected chapterList: Chapter[];
   ngOnInit() {
 
   }

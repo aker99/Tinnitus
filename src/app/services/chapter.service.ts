@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Content } from '../modals/content';
-import { Chapter } from '../modals/chapter';
+import { Content } from '../model/content';
+import { Chapter } from '../model/chapter';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class ChapterService {
   }
 
   getChapterById(id: string): Promise<Content[]> {
-    const url = this.pathToPromiseUrl('/m' + id);
+    const url = this.pathToPromiseUrl('/m' + id + '.json');
     return this.promiseUrlToData(url);
   }
   pathToPromiseUrl(path: string): Promise<any> {

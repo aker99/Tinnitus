@@ -9,19 +9,19 @@
   </ion-toolbar>
 </ion-header>
 <ion-content overflow-scroll="true" >
-<div *ngFor="let content of contents">
+<div *ngFor="let content of contents; let j = index">
   <ion-card color="secondary">
     <ion-card-header>
       <ion-card-title >{{content.data}}</ion-card-title>
     </ion-card-header>  
   </ion-card>
   <ion-card>    
-    <div *ngFor="let sub of content.sub" [ngSwitch]="returnContentType(sub)">
+    <div *ngFor="let sub of content.sub; let i = index" [ngSwitch]="returnContentType(sub)">
       <ion-card-header *ngSwitchCase="getContentType().SUB_HEADING" >
         <ion-card-subtitle color="success">{{sub.data}}</ion-card-subtitle>
       </ion-card-header> 
       <ion-card-content *ngSwitchCase="getContentType().PARAGRAPH">{{sub.data}}</ion-card-content>
-      <ion-img  *ngSwitchCase="getContentType().IMAGE" [src]="getImagePath(sub.data)"></ion-img>
+      <ion-img *ngSwitchCase="getContentType().IMAGE"  [src]="sub.data"></ion-img>
       <ion-list *ngSwitchCase="getContentType().U_LIST">
         <ion-list-header >
           <ion-label color="tertiary">{{sub.data}}</ion-label>
@@ -30,8 +30,8 @@
       </ion-list>
       <ion-card-content *ngSwitchCase="getContentType().AUDIO">
         <audio controls >
-          <source src="assets/content/audio/{{sub.data}}" type="audio/mpeg">
-            Your browser does not support the audio element.
+          <source [src]="sub.data" type="audio/mpeg">
+            Your browser/device does not support the audio element.
         </audio>
       </ion-card-content>
     </div>

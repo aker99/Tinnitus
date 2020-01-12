@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -14,11 +14,11 @@ import * as firebase from 'firebase/app';
 })
 export class AppComponent {
   public appPages = [
-    {
-      title: 'DashBoard',
-      url: 'home',
-      icon: 'home'
-    },
+    // {
+    //   title: 'DashBoard',
+    //   url: 'home',
+    //   icon: 'home'
+    // },
     {
       title: 'Chapters',
       url: 'chapters',
@@ -36,7 +36,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private ngZone: NgZone
   ) {
     firebase.auth().onIdTokenChanged((user) => {
       if (user) {
@@ -59,7 +60,7 @@ export class AppComponent {
 
   tryLogout() {
     this.authService.doLogout().then(res => {
-      this.router.navigate(['']);
+      this.ngZone.run(() => this.router.navigate(['']));
     }, err => {
       console.log(err);
     });
