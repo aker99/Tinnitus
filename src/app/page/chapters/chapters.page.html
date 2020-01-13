@@ -1,22 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Chapters</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Modules</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-row>
-    <ion-col sizeMd=4 sizeSm=6 sizeXs=12 *ngFor="let chapter of chapterList;index as i">
-      <ion-card (click)="openChapter(chapter)">
-          <ion-card-header>
-              <ion-card-title>{{chapter.name}}</ion-card-title>
-              <!-- <ion-card-subtitle></ion-card-subtitle> -->
-          </ion-card-header>
-          <ion-card-content>
-              This is content, without any paragraph or header tags,
-              within an ion-card-content element.
-          </ion-card-content>
+    <ion-col>
+      <ion-card (click)="openChapter(bookmarkChapter)" *ngIf="bookmarkChapter">
+        <ion-card-header>
+            <ion-card-title>Coutinue reading: {{bookmarkChapter.name}}</ion-card-title>
+            <!-- <ion-card-subtitle></ion-card-subtitle> -->
+        </ion-card-header>
+        <ion-card-content>
+            This is content, without any paragraph or header tags,
+            within an ion-card-content element.
+        </ion-card-content>
       </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col sizeMd=4 sizeSm=6 sizeXs=12  *ngFor="let chapter of chapterList;index as i">
+        <ion-card (click)="openChapter(chapter)" >
+            <ion-card-header>
+                <ion-card-title>{{chapter.name}}</ion-card-title>
+                <!-- <ion-card-subtitle></ion-card-subtitle> -->
+            </ion-card-header>
+            <ion-card-content>
+                This is content, without any paragraph or header tags,
+                within an ion-card-content element.
+            </ion-card-content>
+        </ion-card>
     </ion-col>
   </ion-row>
 </ion-content>

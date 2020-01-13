@@ -8,7 +8,7 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content overflow-scroll="true" >
+<ion-content overflow-scroll="true" (ionScrollEnd)="logScrollEnd()" >
 <div *ngFor="let content of contents; let j = index">
   <ion-card color="secondary">
     <ion-card-header>
